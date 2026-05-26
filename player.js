@@ -58,8 +58,9 @@ context.drawImage(this.image, this.frameX * this.width, this.frameY * this.heigh
 onGround(){
    return this.y >= this.game.height - this.height - this.game.groundMargin;
 }
-setState(state){
+setState(state, speed){
     this.currentState = this.states[state];
+    this.game.speed = this.game.maxSpeed * speed;
     this.currentState.enter();
 }
 
