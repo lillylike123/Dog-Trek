@@ -12,7 +12,7 @@ export class Player {
         this.image = document.getElementById('player');
         this.frameX = 0;
         this.frameY = 0;
-        this.maxFrame;
+        this.maxFrame = 4;
         this.fps = 20;
         this.frameInterval = 1000/this.fps;
         this.frameTimer = 0;
@@ -25,12 +25,12 @@ export class Player {
 
 
 update(input, deltaTime) {
-    this.currentState.handleInput(input)
-    // horizontal movement
-    this.x += this.speed;
+    this.currentState.handleInput(input);
+    
     if (input.includes('ArrowRight')) this.speed = this.maxSpeed;
     else if (input.includes('ArrowLeft')) this.speed = -this.maxSpeed;
     else this.speed = 0;
+    this.x += this.speed;
     if (this.x < 0) this.x = 0;
     if (this.x > this.game.width - this.width) this.x = this.game.width - this.width;
     // vertical movement
