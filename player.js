@@ -17,7 +17,7 @@ export class Player {
         this.frameInterval = 1000/this.fps;
         this.frameTimer = 0;
         this.speed = 0;
-        this.maxSpeed = 10;
+        this.maxSpeed = 5;
         this.states = [new Sitting(this), new Running(this), new Jumping(this), new Falling(this)];
         this.currentState = this.states[0];
         this.currentState.enter();
@@ -25,8 +25,9 @@ export class Player {
 
 
 update(input, deltaTime) {
+    checkCollision();
     this.currentState.handleInput(input);
-    
+    // horizontal movement
     if (input.includes('ArrowRight')) this.speed = this.maxSpeed;
     else if (input.includes('ArrowLeft')) this.speed = -this.maxSpeed;
     else this.speed = 0;
@@ -53,6 +54,7 @@ update(input, deltaTime) {
 }   
 
 draw(context) {
+    if (this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height);
 context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
 }
 onGround(){
@@ -63,5 +65,23 @@ setState(state, speed){
     this.game.speed = this.game.maxSpeed * speed;
     this.currentState.enter();
 }
+
+checkCollision(){
+    this.game.enemies.forEach(enemy => {
+            if(
+                enemy.x < this.x + this.width &&
+                enemy.x + enemy.width > this.x &&
+                enemy.y < this.y + this.height &&
+                enemy.y + enemy. height > this.y
+            ){
+                enemy.markedForDeletion = true
+                this.game.score++;
+
+            } else {
+            // no collision
+            }
+        
+        });
+    }
 
 }
