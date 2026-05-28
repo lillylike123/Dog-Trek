@@ -2,6 +2,7 @@ import { Player } from "./player.js";
 import { InputHandler } from './input.js';
 import { Background } from './background.js';
 import { FlyingEnemy, ClimbingEnemy, GroundEnemy} from './enemies.js';
+import { UI } from './UI.js';
 
 window.addEventListener('load', function() {
     const canvas = document.getElementById('canvas1');
@@ -19,11 +20,13 @@ window.addEventListener('load', function() {
             this.background = new Background(this);
             this.player = new Player(this);
             this.input = new InputHandler(this);
+            this.UI = new UI(this);
             this.enemies = [];
             this.enemyTimer = 0;
             this.enemyInterval = 1000;
             this.debug = true;
             this.score = 0;
+            this.fontColor = 'black';
         }
 
         update(deltaTime) {
@@ -38,13 +41,13 @@ window.addEventListener('load', function() {
                 this.enemyTimer += deltaTime;
             }
 
-            this.enemies.forEach(enemy => {
-                enemy.update(deltaTime);
-                if (enemy.markedForDeletion) this.enemies.splice(this.enemies.indexOf(enemy), 1);
-                
-            });
+         
+this.enemies.forEach(enemy => {
+    enemy.update(deltaTime);
+});
 
-            this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
+
+this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
         }
 
         draw(context) {
@@ -54,6 +57,7 @@ window.addEventListener('load', function() {
             this.enemies.forEach(enemy => {
                 enemy.draw(context);
             });
+            this.UI.draw(context);
         }
 
         addEnemy(){
