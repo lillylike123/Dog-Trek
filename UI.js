@@ -5,7 +5,7 @@ export class UI{
         this.fontFamily = 'Helvetica';
     }
     draw(context){
-        context.font = this.fontSize + 'px' + this.fontFamily;
+        context.font = this.fontSize + 'px ' + this.fontFamily;
         context.textAlign = 'left';
         context.fillStyle = this.game.fontColor;
         // score

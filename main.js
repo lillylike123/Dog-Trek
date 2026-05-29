@@ -22,11 +22,13 @@ window.addEventListener('load', function() {
             this.input = new InputHandler(this);
             this.UI = new UI(this);
             this.enemies = [];
+            this.particles = [];
             this.enemyTimer = 0;
             this.enemyInterval = 1000;
             this.debug = true;
             this.score = 0;
             this.fontColor = 'black';
+            
         }
 
         update(deltaTime) {
@@ -42,9 +44,15 @@ window.addEventListener('load', function() {
             }
 
          
-this.enemies.forEach(enemy => {
-    enemy.update(deltaTime);
-});
+            this.enemies.forEach(enemy => {
+                enemy.update(deltaTime);
+            });
+            // handle particles 
+            this.particles.forEach((particle, index) => {
+                particle.update();
+                if (particle.markedForDeletion) this.particles.splice(index, 1)
+            })
+
 
 
 this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
@@ -56,6 +64,9 @@ this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
             this.player.draw(context);
             this.enemies.forEach(enemy => {
                 enemy.draw(context);
+            });
+            this.particles.forEach(particle => {
+                particle.draw(context);
             });
             this.UI.draw(context);
         }
