@@ -1,5 +1,5 @@
-import { Sitting, Running, Jumping, Falling, Rolling } from './playerStates.js'
-
+import { Sitting, Running, Jumping, Falling, Rolling, Diving, Hit } from './playerStates.js'
+import { CollisionAnimation } from './collisionAnimation.js'
 export class Player {
     constructor(game) {
         this.game = game; 
@@ -18,18 +18,20 @@ export class Player {
         this.frameTimer = 0;
         this.speed = 0;
         this.maxSpeed = 5;
-        
-       this.states = [
-    new Sitting(this), 
-    new Running(this), 
-    new Jumping(this), 
-    new Falling(this), 
-    new Rolling(this)
+       
+this.states = [
+    new Sitting(this.game), 
+    new Running(this.game), 
+    new Jumping(this.game), 
+    new Falling(this.game), 
+    new Rolling(this.game),
+    new Diving(this.game),
+    new Hit(this.game)
 ];
         
         
         this.currentState = this.states[0];
-        this.currentState.enter();
+        //this.currentState.enter();
     }
 
 update(input, deltaTime) {
@@ -50,6 +52,9 @@ update(input, deltaTime) {
         this.vy = 0;
         this.y = this.game.height - this.height - this.game.groundMargin;
     }
+    // vertical boundaries
+    if (this.y > this.game.height - this.height - this.game.groundMargin) this.y = this.game.height - this.height - this.game.groundMargin
+
     // sprite animation :)
     if (this.frameTimer > this.frameInterval){
         this.frameTimer = 0;
@@ -83,11 +88,13 @@ checkCollision(){
                 enemy.y + enemy. height > this.y
             ){
                 enemy.markedForDeletion = true
+                this.game.collisions.push(new CollisionAnimation(this.game, enemy.x + enemy.width * 0.5, enemy.y + enemy.height *0.5));
+                if (this.currentState === this.states[4] || this.currentState === this.states[5])
                 this.game.score++;
-
-            } else {
-            // no collision
-            }
+                } else {
+                    this.setState(6, 0);
+                }
+                
         
         });
     }

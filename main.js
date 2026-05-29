@@ -9,7 +9,7 @@ window.addEventListener('load', function() {
     const ctx = canvas.getContext('2d');
     canvas.width = 500;
     canvas.height = 500;
-
+    
     class Game {
         constructor(width, height) {
             this.width = width;
@@ -17,19 +17,22 @@ window.addEventListener('load', function() {
             this.groundMargin = 80;
             this.speed = 0; 
             this.maxSpeed = 6;
-            this.background = new Background(this);
             this.player = new Player(this);
+            this.background = new Background(this);
             this.input = new InputHandler(this);
             this.UI = new UI(this);
             this.enemies = [];
             this.particles = [];
+            this.collisions = [];
+            this.maxParticles = 50;
             this.enemyTimer = 0;
             this.enemyInterval = 1000;
             this.debug = true;
             this.score = 0;
             this.fontColor = 'black';
-            
-        }
+
+            this.player.currentState.enter();
+    }
 
         update(deltaTime) {
             this.background.update();
@@ -51,11 +54,19 @@ window.addEventListener('load', function() {
             this.particles.forEach((particle, index) => {
                 particle.update();
                 if (particle.markedForDeletion) this.particles.splice(index, 1)
-            })
+            });
+            if (this.particles.length > this.maxParticles) {
+                this.particles = this.particles.slice(0, 50);
+            }
+
+            //handle collisiom
 
 
-
-this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
+            //idk where to put this but it works
+            this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion)
+            
+            
+            
         }
 
         draw(context) {
