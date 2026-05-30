@@ -6,7 +6,7 @@
 
 
 #canvas1 {
-    border:5px solid black;
+    border:5px solid rgb(0, 0, 0);
     position: absolute;
     top: 50%;
     left:50%;
@@ -15,6 +15,7 @@
     font-family: "Rubik", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+    
     
 }
 
