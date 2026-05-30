@@ -12,9 +12,14 @@
     left:50%;
     transform: translate(-50%, -50%);  
     max-width: 100%;
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    
 }
 
 #player, #layer1, #layer2, #layer3, #layer4, #layer5, #layer6, #enemy_fly, #enemy_spider_big, #enemy_plant #collisionAnimation{
     display: none;
     
 }
+

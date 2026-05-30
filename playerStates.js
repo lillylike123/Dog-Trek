@@ -41,7 +41,7 @@ export class Running extends State {
     }
     enter(){
         this.game.player.frameX = 0;
-        this.game.player.maxFrame = 6;
+        this.game.player.maxFrame = 8;
         this.game.player.frameY = 3;
     }
     handleInput(input){
@@ -61,7 +61,13 @@ export class Jumping extends State {
         super('JUMPING', game);
     }
     enter(){
-        if (this.game.player.onGround()) this.game.player.vy -= 27;
+        if (this.game.player.onGround()) {
+            this.game.player.vy -= 27;
+            
+            // Play jump sound effect
+            this.game.sound_jump.currentTime = 0;
+            this.game.sound_jump.play();
+        }
         this.game.player.frameX = 0;
         this.game.player.maxFrame = 6;
         this.game.player.frameY = 1;
@@ -112,7 +118,7 @@ export class Rolling extends State {
             this.game.player.setState(states.FALLING, 1);
         } else if (input.includes('Enter') && input.includes('ArrowUp') && this.game.player.onGround()) {
             this.game.player.vy -= 27;
-        } else if (input.includes('ArrowDown')){
+        } else if (input.includes('ArrowDown') && !this.game.player.onGround()){
             this.game.player.setState(states.DIVING, 0);
         }
     }
@@ -133,9 +139,7 @@ export class Diving extends State {
         if (this.game.player.onGround()){
             this.game.player.setState(states.RUNNING, 1);
             for (let i = 0; i < 30; i++){
-                
-                this.game.particles.unshift(new Splash(this.game, this.game.player.x + this.game.player.width * 0.5, 
-                this.game.player.y + this.game.player.height)); 
+                this.game.particles.unshift(new Splash(this.game, this.game.player.x + this.game.player.width * 0.5, this.game.player.y + this.game.player.height)); 
             }
         } else if (input.includes('Enter') && this.game.player.onGround()){
             this.game.player.setState(states.ROLLING, 2);
