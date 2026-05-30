@@ -9,9 +9,13 @@ I added unique features to make this game special and set it apart from the rest
 Controls
 -----------
 Right Arrow - Forward
+
 Up Arrow - Jump
+
 Enter - Roll & Attack
+
 Down Arrow - Smash (When in the sky)
+
 Reload - Restart Game
 
 Goal
