@@ -22,11 +22,8 @@ I added unique features to make this game special and set it apart from the rest
 
 Controls
 -----------
-<<<<<<< Updated upstream
-Right Arrow - Forward
-=======
+
 Right Arrow - Forward/Go faster
->>>>>>> Stashed changes
 
 Up Arrow - Jump
 
@@ -44,7 +41,7 @@ In 30 seconds, you must kill 20 enemies and have a score of 20
 Thanks for checking this out <3
 =======
 
-You must get 50 points in 90 seconds in order to win the game.
+You must get 50 points in 90 seconds to win the game.
 
 Thanks for checking this out <3 You are legit the best!!!
 >>>>>>> Stashed changes
