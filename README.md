@@ -35,7 +35,7 @@ Reload - Restart Game
 
 Goal
 -----------
-<<<<<<< Updated upstream
+
 In 30 seconds, you must kill 20 enemies and have a score of 20
 
 Thanks for checking this out <3
@@ -44,6 +44,5 @@ Thanks for checking this out <3
 You must get 50 points in 90 seconds to win the game.
 
 Thanks for checking this out <3 You are legit the best!!!
->>>>>>> Stashed changes
 
 <img width="899" height="500" alt="Screenshot 2026-05-30 190442" src="https://github.com/user-attachments/assets/4c3291c8-506e-4ed1-9ac9-18cb1ebd5977" />
