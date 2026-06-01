@@ -1,15 +1,36 @@
- <!DOCTYPE html>
- <html lang="en">
- <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dog Trek</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" rel="stylesheet" href="style.css">
- </head>
- <body>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        #canvas1 {
+            background: white;
+            max-width: 100%;
+            max-height: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
     <canvas id="canvas1"></canvas>
     
     <div style="display: none;">
@@ -22,11 +43,10 @@
         <img id="enemy_fly" src="assets/enemy_fly.png">
         <img id="enemy_plant" src="assets/enemy_plant.png">
         <img id="enemy_spider_big" src="assets/enemy_spider_big.png">
-        <img id="fire" src="assets/fire.png">
         <img id="collisionAnimation" src="assets/boom.png">
+        <img id="fire" src="assets/fire.png">
     </div>
 
     <script type="module" src="main.js"></script>
 </body>
- </html>
-
+</html>

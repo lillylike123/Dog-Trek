@@ -37,22 +37,29 @@ export class Player {
         this.checkCollision();
         this.currentState.handleInput(input);
 
-        // Horizontal movement
-        this.x += this.speed;
-        if (input.includes('ArrowRight') && this.currentState !== this.states[6]) this.speed = this.maxSpeed;
-        else if (input.includes('ArrowLeft') && this.currentState !== this.states[6]) this.speed = -this.maxSpeed;
-        else this.speed = 0;
+        
+        if (input.includes('ArrowRight') && this.currentState !== this.states[6]) {
+            this.speed = this.maxSpeed;
+        } else if (input.includes('ArrowLeft') && this.currentState !== this.states[6]) {
+            this.speed = -this.maxSpeed;
+        } else {
+            this.speed = 0;
+        }
 
-        // Horizontal boundaries
+        
+        if (this.game.currentLevel === 3) {
+            this.x -= 1.5; 
+        }
+
+        this.x += this.speed;
         if (this.x < 0) this.x = 0;
         if (this.x > this.game.width - this.width) this.x = this.game.width - this.width;
 
-        // Vertical movement
+        
         this.y += this.vy;
         if (!this.onGround()) this.vy += this.weight;
         else this.vy = 0;
 
-        // Vertical boundaries
         if (this.y > this.game.height - this.height - this.game.groundMargin) {
             this.y = this.game.height - this.height - this.game.groundMargin;
         }
@@ -69,28 +76,33 @@ export class Player {
 
     draw(context) {
         if (this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height);
-        context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
+        context.drawImage(
+            this.image, 
+            this.frameX * this.width, this.frameY * this.height, 
+            this.width, this.height, 
+            this.x, this.y, 
+            this.width, this.height
+        );
     }
 
-    onGround(){
-       return this.y >= this.game.height - this.height - this.game.groundMargin;
+    onGround() {
+        return this.y >= this.game.height - this.height - this.game.groundMargin;
     }
 
-    setState(state, speed){
+    setState(state, speed) {
         this.currentState = this.states[state];
         this.game.speed = this.game.maxSpeed * speed;
         this.currentState.enter();
     }
 
-    checkCollision(){
+    checkCollision() {
         this.game.enemies.forEach(enemy => {
-            if(
+            if (
                 enemy.x < this.x + this.width &&
                 enemy.x + enemy.width > this.x &&
                 enemy.y < this.y + this.height &&
                 enemy.y + enemy.height > this.y
-            ){
-                
+            ) {
                 this.game.collisions.push(new CollisionAnimation(this.game, enemy.x + enemy.width * 0.5, enemy.y + enemy.height * 0.5));
                 
                 if (this.currentState === this.states[4] || this.currentState === this.states[5]) {
@@ -98,19 +110,15 @@ export class Player {
                     this.game.floatingMessages.push(new FloatingMessage('+1', enemy.x, enemy.y, 150, 50));
                     
                     this.game.sound_destroy.currentTime = 0; 
-                    this.game.sound_destroy.play();
+                    this.game.sound_destroy.play().catch(e => {});
                 } else {
                     this.setState(6, 0);
                     this.game.score -= 1;
                     
                     this.game.sound_hurt.currentTime = 0;
-                    this.game.sound_hurt.play();
-
-                    
+                    this.game.sound_hurt.play().catch(e => {});
                     this.game.shakeTimer = 300;
                 }
-
-                
                 enemy.markedForDeletion = true;
             }
         });
